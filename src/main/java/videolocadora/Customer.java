@@ -27,8 +27,7 @@ public class Customer {
         String result = "Rental Record for " + getName() + "\n";
 
         for (Rental each : rentals) {
-            double thisAmount = each.getCharge();
-
+            
             frequentRenterPoints++;
 
             if (each.getMovie().getPriceCode() == Movie.NEW_RELEASE &&
@@ -36,15 +35,19 @@ public class Customer {
                 frequentRenterPoints++;
             }
 
-            result += "\t" + each.getMovie().getTitle() + "\t" + thisAmount + "\n";
-            totalAmount += thisAmount;
+            result += "\t" + each.getMovie().getTitle() + "\t"
+                    + each.getCharge() + "\n";
+
+            totalAmount += each.getCharge();
         }
 
         result += "Amount owed is " + totalAmount + "\n";
-        result += "You earned " + frequentRenterPoints + " frequent renter points";
+        result += "You earned " + frequentRenterPoints
+                + " frequent renter points";
 
         return result;
     }
+
 
 
 }
