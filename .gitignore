@@ -1,0 +1,14 @@
+# Ignorar arquivos compilados
+/out/
+/target/
+/build/
+/.idea/
+/*.iml
+
+# Ignorar configurações do IntelliJ
+/.gradle/
+/.vscode/
+
+# Ignorar caches e outros
+*.class
+*.log
