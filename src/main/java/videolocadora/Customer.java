@@ -27,13 +27,11 @@ public class Customer {
         String result = "Rental Record for " + getName() + "\n";
 
         for (Rental each : rentals) {
-            
+
             frequentRenterPoints++;
 
-            if (each.getMovie().getPriceCode() == Movie.NEW_RELEASE &&
-                    each.getDaysRented() > 1) {
-                frequentRenterPoints++;
-            }
+            frequentRenterPoints += each.getFrequentRenterPoints();
+
 
             result += "\t" + each.getMovie().getTitle() + "\t"
                     + each.getCharge() + "\n";
