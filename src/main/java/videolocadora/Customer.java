@@ -1,7 +1,9 @@
 package videolocadora;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Vector;
 
 public class Customer {
 
@@ -21,7 +23,6 @@ public class Customer {
     }
 
     public String statement() {
-
         String result = "Rental Record for " + getName() + "\n";
 
         for (Rental each : rentals) {
@@ -53,18 +54,21 @@ public class Customer {
     }
 
     public String htmlStatement() {
+        Vector<Rental> vector = new Vector<>(rentals);
+        Enumeration<Rental> rentalsEnum = vector.elements();
 
         String result = "<H1>Rentals for <EM>" + getName() + "</EM></H1><P>\n";
 
-        for (Rental each : rentals) {
-            result += each.getMovie().getTitle() + ": "
-                    + each.getCharge() + "<BR>\n";
+        while (rentalsEnum.hasMoreElements()) {
+            Rental each = rentalsEnum.nextElement();
+            result += each.getMovie().getTitle() + ": " +
+                    String.valueOf(each.getCharge()) + "<BR>\n";
         }
 
-        result += "<P>You owe <EM>" + getTotalCharge() + "</EM><P>\n";
-        result += "On this rental you earned <EM>"
-                + getTotalFrequentRenterPoints()
-                + "</EM> frequent renter points<P>";
+        result += "<P>You owe <EM>" + String.valueOf(getTotalCharge()) + "</EM><P>\n";
+        result += "On this rental you earned <EM>" +
+                String.valueOf(getTotalFrequentRenterPoints()) +
+                "</EM> frequent renter points<P>";
 
         return result;
     }
