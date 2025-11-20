@@ -1,8 +1,24 @@
 package videolocadora;
 
+import java.util.Enumeration;
+
 public abstract class Statement {
 
-    public abstract String header(Customer aCustomer);
-    public abstract String eachRental(Rental each);
-    public abstract String footer(Customer aCustomer);
+    public String value(Customer aCustomer) {
+        String result = headerString(aCustomer);
+
+        for (Enumeration<Rental> rentals = aCustomer.getRentals(); rentals.hasMoreElements();) {
+            Rental each = rentals.nextElement();
+            result += eachRentalString(each);
+        }
+
+        result += footerString(aCustomer);
+        return result;
+    }
+
+    protected abstract String headerString(Customer aCustomer);
+
+    protected abstract String eachRentalString(Rental aRental);
+
+    protected abstract String footerString(Customer aCustomer);
 }

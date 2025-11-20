@@ -1,40 +1,22 @@
 package videolocadora;
 
-import java.util.Enumeration;
-
 public class TextStatement extends Statement {
 
     @Override
-    public String value(Customer aCustomer) {
-        Enumeration<Rental> rentals = aCustomer.getRentals();
-
-        String result = header(aCustomer);
-
-        while (rentals.hasMoreElements()) {
-            Rental each = rentals.nextElement();
-            result += eachRental(each);
-        }
-
-        result += footer(aCustomer);
-
-        return result;
-    }
-
-    @Override
-    public String header(Customer aCustomer) {
+    protected String headerString(Customer aCustomer) {
         return "Rental Record for " + aCustomer.getName() + "\n";
     }
 
     @Override
-    public String eachRental(Rental each) {
-        return "\t" + each.getMovie().getTitle() + "\t" +
-                each.getCharge() + "\n";
+    protected String eachRentalString(Rental aRental) {
+        return "\t" + aRental.getMovie().getTitle() + "\t" +
+                String.valueOf(aRental.getCharge()) + "\n";
     }
 
     @Override
-    public String footer(Customer aCustomer) {
-        return "Amount owed is " + aCustomer.getTotalCharge() + "\n" +
-                "You earned " + aCustomer.getTotalFrequentRenterPoints() +
+    protected String footerString(Customer aCustomer) {
+        return "Amount owed is " + String.valueOf(aCustomer.getTotalCharge()) + "\n" +
+                "You earned " + String.valueOf(aCustomer.getTotalFrequentRenterPoints()) +
                 " frequent renter points";
     }
 }
