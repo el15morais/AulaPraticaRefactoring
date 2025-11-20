@@ -1,43 +1,45 @@
 package videolocadora;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Vector;
 
 public class Customer {
-    private String _name;
-    private Vector _rentals = new Vector();
+
+    private String name;
+    private List<Rental> rentals = new ArrayList<>();
 
     public Customer(String name) {
-        _name = name;
+        this.name = name;
     }
 
     public void addRental(Rental arg) {
-        _rentals.addElement(arg);
+        rentals.add(arg);
     }
 
     public String getName() {
-        return _name;
+        return name;
     }
 
-    public Enumeration getRentals() {
-        return _rentals.elements();
-    }
-
-    // agora chamam as novas classes
+    // Método statement agora usa TextStatement
     public String statement() {
         return new TextStatement().value(this);
     }
 
+    // Método htmlStatement agora usa HtmlStatement
     public String htmlStatement() {
         return new HtmlStatement().value(this);
     }
 
-    // tornados públicos
+    public Enumeration<Rental> getRentals() {
+        Vector<Rental> vector = new Vector<>(rentals);
+        return vector.elements();
+    }
+
     public double getTotalCharge() {
         double result = 0;
-        Enumeration rentals = _rentals.elements();
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
+        for (Rental each : rentals) {
             result += each.getCharge();
         }
         return result;
@@ -45,9 +47,7 @@ public class Customer {
 
     public int getTotalFrequentRenterPoints() {
         int result = 0;
-        Enumeration rentals = _rentals.elements();
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
+        for (Rental each : rentals) {
             result += each.getFrequentRenterPoints();
         }
         return result;
