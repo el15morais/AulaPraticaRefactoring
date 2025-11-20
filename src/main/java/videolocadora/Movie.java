@@ -38,30 +38,10 @@ public class Movie {
         }
     }
 
-    // Já existia no seu código
     public double getCharge(int daysRented) {
-
-        switch (getPriceCode()) {
-            case REGULAR:
-                double result = 2;
-                if (daysRented > 2)
-                    result += (daysRented - 2) * 1.5;
-                return result;
-
-            case NEW_RELEASE:
-                return daysRented * 3;
-
-            case CHILDRENS:
-                double c = 1.5;
-                if (daysRented > 3)
-                    c += (daysRented - 3) * 1.5;
-                return c;
-        }
-
-        return 0;
+        return price.getCharge(daysRented);
     }
 
-    // Também já existia
     public int getFrequentRenterPoints(int daysRented) {
         if (getPriceCode() == NEW_RELEASE && daysRented > 1) {
             return 2;
